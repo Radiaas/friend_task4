@@ -135,6 +135,7 @@
             android:textSize="@dimen/_14ssp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             app:drawableStartCompat="@drawable/ic_info"
             android:drawablePadding="@dimen/_8sdp" />
 

@@ -53,7 +53,7 @@ class DetailFriendActivity : AppCompatActivity() {
                 putExtra("EXTRA_SCHOOL", currentFriend?.school)
                 putExtra("EXTRA_BIO", currentFriend?.bio)
                 putExtra("EXTRA_PHOTO_PATH", currentFriend?.photoPath)
-                putExtra("EXTRA_PHONE_NUMBER", currentFriend?.phoneNumber) // Pastikan phoneNumber disertakan
+                putExtra("EXTRA_PHONE_NUMBER", currentFriend?.phone) // Pastikan phoneNumber disertakan
             }
             editLauncher.launch(editIntent)
       }
@@ -83,7 +83,7 @@ class DetailFriendActivity : AppCompatActivity() {
                 binding.tvName.text = friend?.name ?: ""
                 binding.tvSchool.text = friend?.school ?: ""
                 binding.tvBio.text = friend?.bio ?: ""
-                binding.tvPhoneNumberValue.text = friend?.phoneNumber ?: "Not Available" // Tambahkan ini
+                binding.tvPhoneNumberValue.text = friend?.phone ?: "Not Available" // Tambahkan ini
 
                 friend?.photoPath?.let { path ->
                     val photoFile = File(path)

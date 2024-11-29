@@ -165,7 +165,7 @@ class AddFriendActivity : AppCompatActivity() {
                     binding.etName.setText(friend?.name)
                     binding.etSchool.setText(friend?.school)
                     binding.etBio.setText(friend?.bio)
-                    binding.etPhoneNumber.setText(friend?.phoneNumber) // Tambahkan ini
+                    binding.etPhoneNumber.setText(friend?.phone) // Tambahkan ini
                     loadProfileImage(friend?.photoPath)
                 }
             }
@@ -224,7 +224,7 @@ class AddFriendActivity : AppCompatActivity() {
                         name = name,
                         school = school,
                         bio = bio,
-                        phoneNumber = phoneNumber,
+                        phone = phoneNumber,
                         photoPath = photoFile.absolutePath
                     ).apply { id = idFriend }
                 )

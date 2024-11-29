@@ -217,7 +217,7 @@ class EditFriendActivity : AppCompatActivity() {
                 binding.etName.setText(friend?.name)
                 binding.etSchool.setText(friend?.school)
                 binding.etBio.setText(friend?.bio)
-                binding.etPhoneNumber.setText(friend?.phoneNumber) // Tambahkan ini
+                binding.etPhoneNumber.setText(friend?.phone) // Tambahkan ini
                 friend?.photoPath?.let { path ->
                     val photoFile = File(path)
                     if (photoFile.exists()) {
@@ -265,7 +265,7 @@ class EditFriendActivity : AppCompatActivity() {
                 school = school,
                 bio = bio,
                 photoPath = photoPathToSave,
-                phoneNumber = phoneNumber
+                phone = phoneNumber
             ).apply {
                 id = idFriend
             }

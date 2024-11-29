@@ -5,16 +5,15 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
+import com.colab.myfriend.FriendAutoMigrationSpec
 import com.colab.myfriend.adapter.FriendDao
 
 @Database(
     entities = [Friend::class],
-    version = 4,
-    exportSchema = true, // Wajib untuk auto-migration
+    version = 5,
+    exportSchema = true,
     autoMigrations = [
-        AutoMigration(from = 3, to = 4)
+        AutoMigration(from = 4, to = 5, spec = FriendAutoMigrationSpec::class)
     ]
 )
 abstract class MyDatabase : RoomDatabase() {
@@ -30,8 +29,7 @@ abstract class MyDatabase : RoomDatabase() {
                     context.applicationContext,
                     MyDatabase::class.java,
                     "my_database"
-                )
-                    .build()
+                ).build()
             }
         }
     }

@@ -13,7 +13,7 @@ data class Friend(
     var bio: String,
     var photoPath: String?,
     @ColumnInfo(defaultValue = "")
-    var phoneNumber: String = ""
+    var phone: String = ""
 ) {
     // Anotasi @PrimaryKey menandai bahwa properti ini adalah primary key untuk tabel
     @PrimaryKey(autoGenerate = true)
