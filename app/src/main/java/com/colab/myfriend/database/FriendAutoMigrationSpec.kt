@@ -1,5 +1,6 @@
-package com.colab.myfriend
+package com.colab.myfriend.database
 
+import androidx.room.DeleteColumn
 import androidx.room.migration.AutoMigrationSpec
 import androidx.room.RenameColumn
 
@@ -10,4 +11,7 @@ import androidx.room.RenameColumn
         toColumnName = "phone"
     )
 )
+
+@DeleteColumn(tableName = "friend", columnName = "bio")
+
 class FriendAutoMigrationSpec : AutoMigrationSpec

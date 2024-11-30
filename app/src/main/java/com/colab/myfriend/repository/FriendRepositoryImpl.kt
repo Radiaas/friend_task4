@@ -1,9 +1,8 @@
-package com.colab.myfriend
+package com.colab.myfriend.repository
 
 import com.colab.myfriend.adapter.FriendDao
 import com.colab.myfriend.database.Friend
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.firstOrNull
 import javax.inject.Inject
 
 class FriendRepositoryImpl @Inject constructor(

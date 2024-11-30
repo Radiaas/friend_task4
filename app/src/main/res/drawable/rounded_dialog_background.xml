@@ -1,6 +1,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#EDE7F6"/> <!-- Warna latar belakang -->
-    <corners android:radius="16dp"/> <!-- Sudut melengkung -->
+    <solid android:color="@color/white_shadow"/>
+    <corners android:radius="16dp"/>
     <padding
         android:left="16dp"
         android:top="16dp"

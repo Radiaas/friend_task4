@@ -11,5 +11,6 @@
     <color name="purple">#8D00D3</color>
     <color name="darkPurple">#4E0076</color>
     <color name="darkOrange">#cb7a00</color>
+    <color name="white_shadow">#EDE7F6</color>
 
 </resources>

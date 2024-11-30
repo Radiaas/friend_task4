@@ -1,6 +1,5 @@
-package com.colab.myfriend
+package com.colab.myfriend.repository
 
-import androidx.room.Query
 import com.colab.myfriend.database.Friend
 import com.crocodic.core.data.CoreDao
 import kotlinx.coroutines.flow.Flow

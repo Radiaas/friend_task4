@@ -31,7 +31,6 @@ import com.colab.myfriend.viewmodel.FriendViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 
@@ -164,7 +163,6 @@ class AddFriendActivity : AppCompatActivity() {
                     oldFriend = friend
                     binding.etName.setText(friend?.name)
                     binding.etSchool.setText(friend?.school)
-                    binding.etBio.setText(friend?.bio)
                     binding.etPhoneNumber.setText(friend?.phone) // Tambahkan ini
                     loadProfileImage(friend?.photoPath)
                 }
@@ -194,13 +192,11 @@ class AddFriendActivity : AppCompatActivity() {
     private fun isFormValid(): Boolean {
         val name = binding.etName.text.toString().trim()
         val school = binding.etSchool.text.toString().trim()
-        val bio = binding.etBio.text.toString().trim()
         val phoneNumber = binding.etPhoneNumber.text.toString().trim()
 
         return when {
             name.isEmpty() -> showToast("Please fill in the name").let { false }
             school.isEmpty() -> showToast("Please fill in the school").let { false }
-            bio.isEmpty() -> showToast("Please fill in the bio").let { false }
             phoneNumber.isEmpty() -> showToast("Please fill in the phone number").let { false }
             !isImageChanged -> showToast("Please change the image").let { false }
             else -> true
@@ -210,20 +206,18 @@ class AddFriendActivity : AppCompatActivity() {
     private fun saveFriendData() {
         val name = binding.etName.text.toString().trim()
         val school = binding.etSchool.text.toString().trim()
-        val bio = binding.etBio.text.toString().trim()
         val phoneNumber = binding.etPhoneNumber.text.toString().trim()
 
         lifecycleScope.launch {
             if (oldFriend == null) {
                 viewModel.insertFriend(
-                    Friend(name, school, bio, photoFile.absolutePath, phoneNumber)
+                    Friend(name, school, photoFile.absolutePath, phoneNumber)
                 )
             } else {
                 viewModel.editFriend(
                     oldFriend!!.copy(
                         name = name,
                         school = school,
-                        bio = bio,
                         phone = phoneNumber,
                         photoPath = photoFile.absolutePath
                     ).apply { id = idFriend }

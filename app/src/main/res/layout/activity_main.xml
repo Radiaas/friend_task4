@@ -20,8 +20,6 @@
 
         <TextView
             style="@style/textTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/let_s_be_friend"
             android:layout_marginStart="@dimen/_13sdp"
             android:layout_marginTop="@dimen/_23sdp"
@@ -30,8 +28,6 @@
 
         <TextView
             style="@style/textTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/description"
             android:textSize="@dimen/_13ssp"
             android:layout_marginHorizontal="@dimen/_13sdp"

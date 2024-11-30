@@ -9,7 +9,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.colab.myfriend.R
 import com.colab.myfriend.database.Friend
 import com.colab.myfriend.databinding.ActivityDetailFriendBinding
 import com.colab.myfriend.viewmodel.FriendViewModel
@@ -51,7 +50,6 @@ class DetailFriendActivity : AppCompatActivity() {
                 putExtra("EXTRA_ID", currentFriend?.id)
                 putExtra("EXTRA_NAME", currentFriend?.name)
                 putExtra("EXTRA_SCHOOL", currentFriend?.school)
-                putExtra("EXTRA_BIO", currentFriend?.bio)
                 putExtra("EXTRA_PHOTO_PATH", currentFriend?.photoPath)
                 putExtra("EXTRA_PHONE_NUMBER", currentFriend?.phone) // Pastikan phoneNumber disertakan
             }
@@ -82,7 +80,6 @@ class DetailFriendActivity : AppCompatActivity() {
                 currentFriend = friend
                 binding.tvName.text = friend?.name ?: ""
                 binding.tvSchool.text = friend?.school ?: ""
-                binding.tvBio.text = friend?.bio ?: ""
                 binding.tvPhoneNumberValue.text = friend?.phone ?: "Not Available" // Tambahkan ini
 
                 friend?.photoPath?.let { path ->

@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.colab.myfriend.adapter.FriendAdapter
-import com.colab.myfriend.database.Friend
 import com.colab.myfriend.databinding.ActivityMenuHomeBinding
 import com.colab.myfriend.viewmodel.FriendViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,30 +27,25 @@ class MenuHomeActivity : AppCompatActivity() {
         binding = ActivityMenuHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Menginisialisasi adapter dengan listener untuk klik item
         adapter = FriendAdapter(emptyList()) { friend ->
             val intent = Intent(this, DetailFriendActivity::class.java).apply {
                 putExtra("EXTRA_NAME", friend.name)
                 putExtra("EXTRA_SCHOOL", friend.school)
-                putExtra("EXTRA_BIO", friend.bio)
                 putExtra("EXTRA_IMAGE_PATH", friend.photoPath)
                 putExtra("EXTRA_ID", friend.id)
             }
             startActivity(intent)
         }
 
-        // Menetapkan GridLayoutManager pada RecyclerView
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerView.adapter = adapter
 
-        // Observasi data teman dari ViewModel
         lifecycleScope.launch {
             viewModel.getFriend().collect { friends ->
-                adapter.updateData(friends)  // Memperbarui data pada adapter
+                adapter.updateData(friends)
             }
         }
 
-        // Menambahkan TextWatcher untuk pencarian
         binding.searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -60,14 +54,12 @@ class MenuHomeActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // Menangani tombol "Add Friend"
         binding.btnAddFriend.setOnClickListener {
             val intent = Intent(this, AddFriendActivity::class.java)
             startActivity(intent)
         }
     }
 
-    // Fungsi pencarian menggunakan ViewModel
     private fun searchFriends(keyword: String) {
         lifecycleScope.launch {
             viewModel.searchFriend(keyword).collect { results ->

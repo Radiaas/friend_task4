@@ -12,9 +12,6 @@ interface FriendDao : CoreDao<Friend> {
     @Query("SELECT * FROM friend WHERE id = :id")
     fun getItemById(id: Int): Flow<Friend?>
 
-//    @Query("SELECT * FROM friend WHERE name LIKE :keyword")
-//    fun findFriend(keyword: String): List<Friend>
-
     @Query("SELECT * FROM friend")
     fun getAll(): Flow<List<Friend>>
 

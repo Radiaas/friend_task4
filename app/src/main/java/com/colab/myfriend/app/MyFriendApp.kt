@@ -1,4 +1,4 @@
-package com.colab.myfriend
+package com.colab.myfriend.app
 
 import android.app.Application
 import com.google.firebase.FirebaseApp
@@ -6,7 +6,6 @@ import com.google.firebase.FirebaseApp
 class MyFriendApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        // Inisialisasi Firebase
         FirebaseApp.initializeApp(this)
     }
 }

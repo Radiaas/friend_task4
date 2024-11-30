@@ -20,13 +20,10 @@ android {
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-
     }
 
     packaging {
         resources {
-            // Exclude the duplicate files to resolve the conflict
             excludes += "META-INF/DEPENDENCIES"
         }
     }
@@ -91,7 +88,6 @@ dependencies {
 
     annotationProcessor (libs.hilt.compiler.v252)
 
-    // For local unit tests
     testImplementation (libs.hilt.android.testing)
     kaptTest (libs.hilt.compiler.v252)
 
@@ -104,6 +100,7 @@ dependencies {
     implementation (libs.timber)
 
 }
+
 ksp {
         arg("room.schemaLocation", "$projectDir/schemas")
 

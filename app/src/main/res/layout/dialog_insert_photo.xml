@@ -10,8 +10,6 @@
     <TextView
         android:id="@+id/title"
         style="@style/textTheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/insert_photo"
         android:textSize="@dimen/_14ssp"
         android:textStyle="bold" />
@@ -19,8 +17,6 @@
     <TextView
         android:id="@+id/from_camera"
         style="@style/textTheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/from_camera"
         android:textSize="@dimen/_12ssp"
         android:paddingVertical="@dimen/_8sdp" />
@@ -33,8 +29,6 @@
     <TextView
         android:id="@+id/pick_gallery"
         style="@style/textTheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/pick_gallery"
         android:textSize="@dimen/_12ssp"
         android:paddingVertical="@dimen/_8sdp" />

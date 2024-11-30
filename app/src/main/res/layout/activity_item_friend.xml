@@ -17,7 +17,6 @@
         android:orientation="vertical"
         android:padding="@dimen/_5sdp">
 
-        <!-- Profile Image of the friend -->
         <ImageView
             android:id="@+id/img_friend"
             android:layout_width="match_parent"
@@ -27,7 +26,6 @@
             android:src="@drawable/ic_profile_placeholder"
             tools:ignore="ImageContrastCheck" />
 
-        <!-- Layout for displaying friend's name, school, and bio -->
         <LinearLayout
             style="@style/subCardTheme"
             android:layout_width="match_parent"
@@ -38,32 +36,23 @@
             android:gravity="center"
             android:layout_marginTop="@dimen/_5sdp">
 
-            <!-- TextView to display friend's name -->
             <TextView
                 android:id="@+id/tv_friend_name"
                 style="@style/textTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/name"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold"/>
 
-            <!-- TextView to display friend's school -->
             <TextView
                 android:id="@+id/tv_friend_school"
                 style="@style/textTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/school_hint"
                 android:textSize="@dimen/_10ssp"/>
 
-            <!-- TextView to display friend's bio -->
             <TextView
                 android:id="@+id/tv_friend_bio"
                 style="@style/textTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"/> <!-- Make bio visible -->
+                android:visibility="invisible"/>
 
         </LinearLayout>
     </LinearLayout>
