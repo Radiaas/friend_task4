@@ -33,7 +33,7 @@
             android:layout_marginHorizontal="@dimen/_13sdp"
             android:layout_marginVertical="@dimen/_15sdp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_start"
             style="@style/Button"
             android:layout_width="match_parent"

@@ -64,10 +64,11 @@
         <item name="android:background">@color/darkOrange</item>
     </style>
 
-    <style name="Button">
+    <style name="Button" parent="Widget.Material3.Button">
+        <item name="android:background">@drawable/bg_dark_button</item>
+        <item name="backgroundTint">@null</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:backgroundTint">@color/darkPurple</item>
     </style>
 
     <style name="btnAddTheme">
