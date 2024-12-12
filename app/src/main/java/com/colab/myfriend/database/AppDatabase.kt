@@ -9,10 +9,10 @@ import com.colab.myfriend.adapter.FriendDao
 
 @Database(
     entities = [Friend::class],
-    version = 6,
+    version = 7,
     exportSchema = true,
     autoMigrations = [
-        AutoMigration(from = 5, to = 6, spec = FriendAutoMigrationSpec::class)
+        AutoMigration(from = 6, to = 7, spec = FriendAutoMigrationSpec::class)
     ]
 )
 abstract class MyDatabase : RoomDatabase() {
@@ -28,7 +28,8 @@ abstract class MyDatabase : RoomDatabase() {
                     context.applicationContext,
                     MyDatabase::class.java,
                     "my_database"
-                ).build()
+                )
+                    .build()
             }
         }
     }

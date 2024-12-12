@@ -100,6 +100,10 @@ dependencies {
 
     implementation (libs.timber)
 
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+
+
 }
 
 ksp {
