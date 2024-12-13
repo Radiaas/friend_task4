@@ -9,9 +9,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.colab.myfriend.adapter.FriendAdapter
+import com.colab.myfriend.adapter.NewsAdapter
 import com.colab.myfriend.databinding.ActivityMenuHomeBinding
-import com.colab.myfriend.viewmodel.FriendViewModel
+import com.colab.myfriend.viewmodel.NewsViewModel
+import com.colab.newsapp.activity.DetailNewsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -19,50 +20,56 @@ import kotlinx.coroutines.launch
 class MenuHomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMenuHomeBinding
-    private lateinit var adapter: FriendAdapter
-    private val viewModel: FriendViewModel by viewModels()
+    private lateinit var adapter: NewsAdapter
+    private val viewModel: NewsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMenuHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = FriendAdapter(emptyList()) { friend ->
-            val intent = Intent(this, DetailFriendActivity::class.java).apply {
-                putExtra("EXTRA_NAME", friend.name)
-                putExtra("EXTRA_SCHOOL", friend.school)
-                putExtra("EXTRA_IMAGE_PATH", friend.photoPath)
-                putExtra("EXTRA_ID", friend.id)
+        // Initialize adapter with empty list and onItemClick callback
+        adapter = NewsAdapter(emptyList()) { news ->
+            val intent = Intent(this, DetailNewsActivity::class.java).apply {
+                putExtra("EXTRA_TITLE", news.title)
+                putExtra("EXTRA_DESCRIPTION", news.description)
+                putExtra("EXTRA_IMAGE_URL", news.imageUrl)
+                putExtra("EXTRA_ID", news.id)
             }
             startActivity(intent)
         }
 
+        // Setup RecyclerView with GridLayoutManager
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerView.adapter = adapter
 
+        // Observe data from ViewModel
         lifecycleScope.launch {
-            viewModel.getFriend().collect { friends ->
-                adapter.updateData(friends)
+            viewModel.getAllNews().collect { newsList ->
+                adapter.updateData(newsList)
             }
         }
 
+        // Search bar functionality
         binding.searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                searchFriends(s.toString())  // Memanggil fungsi pencarian
+                searchNews(s.toString())  // Call search function
             }
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        binding.btnAddFriend.setOnClickListener {
-            val intent = Intent(this, AddFriendActivity::class.java)
-            startActivity(intent)
-        }
+        // Button to add new news (if applicable)
+//        binding.btnAddFriend.setOnClickListener {
+            // Redirect to AddNewsActivity or remove this button if unnecessary
+//            val intent = Intent(this, AddNewsActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
-    private fun searchFriends(keyword: String) {
+    private fun searchNews(keyword: String) {
         lifecycleScope.launch {
-            viewModel.searchFriend(keyword).collect { results ->
+            viewModel.searchNews(keyword).collect { results ->
                 if (results.isEmpty() && keyword.isNotEmpty()) {
                     binding.noDataLayout.visibility = View.VISIBLE
                 } else {
@@ -72,5 +79,4 @@ class MenuHomeActivity : AppCompatActivity() {
             }
         }
     }
-
 }

@@ -35,18 +35,8 @@
             </intent-filter>
         </activity> <!-- Deklarasi aktivitas EditFriendActivity dengan mode input soft-keyboard "adjustPan" -->
 
-        <activity
-            android:name=".activity.EditFriendActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustPan">
 
-        </activity> <!-- Deklarasi aktivitas AddFriendActivity yang dapat diakses dari luar aplikasi -->
 
-        <activity
-            android:name=".activity.AddFriendActivity"
-            android:exported="true">
-
-        </activity> <!-- Deklarasi aktivitas MenuHomeActivity yang dapat diakses dari luar aplikasi -->
 
         <activity
             android:name=".activity.MenuHomeActivity"
@@ -54,11 +44,6 @@
 
         </activity> <!-- Deklarasi aktivitas DetailFriendActivity yang dapat diakses dari luar aplikasi -->
 
-        <activity
-            android:name=".activity.DetailFriendActivity"
-            android:exported="true">
-
-        </activity> <!-- Deklarasi aktivitas MainActivity sebagai aktivitas utama yang diluncurkan pertama kali -->
 
         <activity
             android:name=".activity.MainActivity"

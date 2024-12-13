@@ -103,6 +103,12 @@ dependencies {
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
 
+    // Unit testing
+    testImplementation (libs.junit)
+    testImplementation (libs.kotlinx.coroutines.test)
+    testImplementation (libs.mockito.core)
+    testImplementation (libs.mockito.kotlin)
+
 
 }
 

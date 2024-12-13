@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val apiService: ApiService,
+    @CustomApi private val apiService: ApiService, // Tambahkan qualifier
     private val userDao: UserDao
 ) : ViewModel() {
 

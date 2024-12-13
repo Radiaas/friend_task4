@@ -1,35 +1,33 @@
 package com.colab.myfriend.database
 
 import android.content.Context
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.colab.myfriend.adapter.FriendDao
+import com.colab.myfriend.adapter.NewsDao
 
 @Database(
-    entities = [Friend::class],
-    version = 7,
-    exportSchema = true,
-    autoMigrations = [
-        AutoMigration(from = 6, to = 7, spec = FriendAutoMigrationSpec::class)
-    ]
+    entities = [NewsArticle::class],
+    version = 1,
+    exportSchema = false
 )
-abstract class MyDatabase : RoomDatabase() {
-    abstract fun friendDao(): FriendDao
+abstract class NewsDatabase : RoomDatabase() {
+    abstract fun newsDao(): NewsDao
 
     companion object {
         @Volatile
-        private var INSTANCE: MyDatabase? = null
+        private var INSTANCE: NewsDatabase? = null
 
-        fun getInstance(context: Context): MyDatabase {
+        fun getInstance(context: Context): NewsDatabase {
             return INSTANCE ?: synchronized(this) {
-                Room.databaseBuilder(
+                INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,
-                    MyDatabase::class.java,
-                    "my_database"
+                    NewsDatabase::class.java,
+                    "news_database"
                 )
+                    .fallbackToDestructiveMigration() // Untuk skema tidak kompatibel
                     .build()
+                    .also { INSTANCE = it }
             }
         }
     }

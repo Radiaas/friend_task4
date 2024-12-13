@@ -18,7 +18,7 @@
         android:padding="@dimen/_5sdp">
 
         <ImageView
-            android:id="@+id/img_friend"
+            android:id="@+id/img_news"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_130sdp"
             android:contentDescription="@string/profile_image"
@@ -37,14 +37,14 @@
             android:layout_marginTop="@dimen/_5sdp">
 
             <TextView
-                android:id="@+id/tv_friend_name"
+                android:id="@+id/tv_news_title"
                 style="@style/textTheme"
                 android:text="@string/name"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/tv_friend_school"
+                android:id="@+id/tv_news_description"
                 style="@style/textTheme"
                 android:text="@string/school_hint"
                 android:textSize="@dimen/_10ssp"/>

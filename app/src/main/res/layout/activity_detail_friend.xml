@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DetailFriendActivity"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/toolbar">
@@ -25,77 +24,54 @@
 
             <TextView
                 android:id="@+id/toolbarTitle"
-               style="@style/tittleToolbar"
-                android:text="@string/detail_friend" />
+                style="@style/tittleToolbar"
+                android:text="@string/detail_news" />
 
             <ImageView
                 android:id="@+id/deleteButton"
                 style="@style/iconToolbar"
-                android:contentDescription="@string/button_edit"
-                android:src="@drawable/ic_delete"
-                tools:ignore="RedundantDescriptionCheck" />
-
-            <ImageView
-                android:id="@+id/editButton"
-                style="@style/iconToolbar"
                 android:contentDescription="@string/button_delete"
-                android:src="@drawable/ic_edit"
-                tools:ignore="RedundantDescriptionCheck" />
+                android:src="@drawable/ic_delete" />
         </androidx.appcompat.widget.Toolbar>
 
+        <!-- News Image -->
         <ImageView
-            android:id="@+id/profileImage"
+            android:id="@+id/newsImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_360sdp"
-            android:contentDescription="@string/image_friend"
+            android:contentDescription="@string/image_news"
             android:src="@drawable/ic_profile_placeholder"
             tools:ignore="ImageContrastCheck" />
 
+        <!-- News Title -->
         <TextView
             style="@style/textTheme"
-            android:text="@string/name_hint"
+            android:text="@string/title_hint"
             android:textSize="@dimen/_12ssp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_20sdp" />
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_title"
             style="@style/displayTheme"
             android:textSize="@dimen/_14ssp"
             android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:drawableStartCompat="@drawable/ic_person" />
+            android:layout_marginTop="@dimen/_10sdp" />
 
+        <!-- News Description -->
         <TextView
             style="@style/textTheme"
-            android:text="@string/school_hint"
+            android:text="@string/description_hint"
             android:textSize="@dimen/_12ssp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_20sdp" />
 
         <TextView
-            android:id="@+id/tv_school"
+            android:id="@+id/tv_content"
             style="@style/displayTheme"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/_14ssp"
-            app:drawableStartCompat="@drawable/ic_school" />
-
-        <TextView
-            style="@style/textTheme"
-            android:text="@string/phone_number"
-            android:textSize="@dimen/_12ssp"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_20sdp" />
-
-        <TextView
-            android:id="@+id/tvPhoneNumberValue"
-            style="@style/displayTheme"
-            android:textSize="@dimen/_14ssp"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            app:drawableStartCompat="@drawable/ic_info" />
-
+            android:layout_marginBottom="@dimen/_20sdp" />
     </LinearLayout>
 </ScrollView>
