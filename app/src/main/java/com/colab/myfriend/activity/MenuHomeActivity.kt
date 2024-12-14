@@ -7,9 +7,13 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.colab.myfriend.DataProduct
 import com.colab.myfriend.adapter.FriendAdapter
+import com.colab.myfriend.database.Friend
 import com.colab.myfriend.databinding.ActivityMenuHomeBinding
 import com.colab.myfriend.viewmodel.FriendViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,29 +25,50 @@ class MenuHomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMenuHomeBinding
     private lateinit var adapter: FriendAdapter
     private val viewModel: FriendViewModel by viewModels()
+    private var productList = ArrayList<DataProduct>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMenuHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = FriendAdapter(emptyList()) { friend ->
-            val intent = Intent(this, DetailFriendActivity::class.java).apply {
-                putExtra("EXTRA_NAME", friend.name)
-                putExtra("EXTRA_SCHOOL", friend.school)
-                putExtra("EXTRA_IMAGE_PATH", friend.photoPath)
-                putExtra("EXTRA_ID", friend.id)
+//        adapter = FriendAdapter(emptyList()) { friend ->
+//            val intent = Intent(this, DetailFriendActivity::class.java).apply {
+//                putExtra("EXTRA_NAME", friend.name)
+//                putExtra("EXTRA_SCHOOL", friend.school)
+//                putExtra("EXTRA_IMAGE_PATH", friend.photoPath)
+//                putExtra("EXTRA_ID", friend.id)
+//            }
+//            startActivity(intent)
+//        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.product.collect { data ->
+                    productList.clear()
+                    productList.addAll(data)
+                    adapter.updateData(productList) // Corrected method call
+                }
             }
-            startActivity(intent)
         }
+
+
+
+        adapter = FriendAdapter(emptyList()) { product ->
+//            val intent = Intent(this, DetailProductActivity::class.java).apply {
+//                putExtra("EXTRA_PRODUCT_NAME", product.title)
+//                putExtra("EXTRA_PRODUCT_ID", product.id)
+//            }
+//            startActivity(intent)
+        }
+
+
 
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerView.adapter = adapter
 
         lifecycleScope.launch {
-            viewModel.getFriend().collect { friends ->
-                adapter.updateData(friends)
-            }
+            viewModel.getProduct()
         }
 
         binding.searchBar.addTextChangedListener(object : TextWatcher {
@@ -54,11 +79,12 @@ class MenuHomeActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        binding.btnAddFriend.setOnClickListener {
-            val intent = Intent(this, AddFriendActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.btnAddFriend.setOnClickListener {
+//            val intent = Intent(this, AddFriendActivity::class.java)
+//            startActivity(intent)
+//        }
     }
+
 
     private fun searchFriends(keyword: String) {
         lifecycleScope.launch {
@@ -68,7 +94,6 @@ class MenuHomeActivity : AppCompatActivity() {
                 } else {
                     binding.noDataLayout.visibility = View.GONE
                 }
-                adapter.updateData(results)
             }
         }
     }

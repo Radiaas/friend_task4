@@ -5,6 +5,7 @@ import com.colab.myfriend.adapter.FriendDao
 import com.colab.myfriend.database.MyDatabase
 import com.colab.myfriend.repository.FriendRepository
 import com.colab.myfriend.repository.FriendRepositoryImpl
+import com.crocodic.core.helper.NetworkHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +14,7 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -49,6 +51,17 @@ object AppModule {
     ): FriendRepository {
         return FriendRepositoryImpl(friendDao)
     }
+
+    @Singleton
+    @Provides
+    fun provideApiServiceProduct(): ApiServiceProduct {
+        return NetworkHelper.provideApiService(
+            baseUrl = "https://dummyjson.com/",
+            okHttpClient = NetworkHelper.provideOkHttpClient(),
+            converterFactory = listOf(GsonConverterFactory.create())
+        )
+    }
+
 }
 
 @Module
