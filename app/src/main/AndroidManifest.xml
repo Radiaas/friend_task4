@@ -24,7 +24,14 @@
         android:theme="@style/Theme.MyFriend"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
+            android:exported="true">
+
+        </activity> <!-- Deklarasi aktivitas EditFriendActivity dengan mode input soft-keyboard "adjustPan" -->
+
+
+        <activity
+            android:name=".activity.MenuHomeActivity"
             android:exported="true">
             <intent-filter>
 
@@ -33,32 +40,9 @@
                 <!-- Kategori LAUNCHER agar aplikasi dapat muncul di daftar aplikasi pada launcher perangkat -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Deklarasi aktivitas EditFriendActivity dengan mode input soft-keyboard "adjustPan" -->
-
-        <activity
-            android:name=".activity.EditFriendActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity> <!-- Deklarasi aktivitas AddFriendActivity yang dapat diakses dari luar aplikasi -->
-
-        <activity
-            android:name=".activity.AddFriendActivity"
-            android:exported="true">
-
-        </activity> <!-- Deklarasi aktivitas MenuHomeActivity yang dapat diakses dari luar aplikasi -->
-
-        <activity
-            android:name=".activity.MenuHomeActivity"
-            android:exported="true">
-
         </activity> <!-- Deklarasi aktivitas DetailFriendActivity yang dapat diakses dari luar aplikasi -->
 
-        <activity
-            android:name=".activity.DetailFriendActivity"
-            android:exported="true">
 
-        </activity> <!-- Deklarasi aktivitas MainActivity sebagai aktivitas utama yang diluncurkan pertama kali -->
 
         <activity
             android:name=".activity.MainActivity"

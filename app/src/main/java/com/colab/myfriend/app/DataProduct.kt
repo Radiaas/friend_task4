@@ -1,4 +1,4 @@
-package com.colab.myfriend
+package com.colab.myfriend.app
 
 import com.google.gson.annotations.SerializedName
 

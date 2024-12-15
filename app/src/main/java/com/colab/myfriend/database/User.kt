@@ -1,4 +1,4 @@
-package com.colab.myfriend
+package com.colab.myfriend.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

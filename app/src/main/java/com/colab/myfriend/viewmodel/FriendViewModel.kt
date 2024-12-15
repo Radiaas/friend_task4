@@ -1,9 +1,8 @@
 package com.colab.myfriend.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.colab.myfriend.DataProduct
-import com.colab.myfriend.DataProductsRepo
+import com.colab.myfriend.app.DataProduct
+import com.colab.myfriend.repository.DataProductsRepo
 import com.colab.myfriend.repository.FriendRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -11,8 +10,8 @@ import com.colab.myfriend.adapter.FriendDao
 import com.colab.myfriend.database.Friend
 import com.crocodic.core.base.viewmodel.CoreViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -22,13 +21,18 @@ class FriendViewModel @Inject constructor(
     private val repository: FriendRepository
 ) : CoreViewModel() {
 
-    private val _product = MutableSharedFlow<List<DataProduct>>()
-    val product = _product.asSharedFlow()
+    private val _product = MutableStateFlow<List<DataProduct>>(emptyList())
+    val product: StateFlow<List<DataProduct>> = _product
+
 
     fun getProduct(keyword: String = "") = viewModelScope.launch {
         dataProductsRepo.getProducts(keyword).collect { it: List<DataProduct> ->
             _product.emit(it)
         }
+    }
+
+    fun searchProduct(keyword: String): Flow<List<DataProduct>> {
+        return dataProductsRepo.getProducts(keyword)
     }
 
 

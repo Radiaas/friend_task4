@@ -32,4 +32,7 @@
     <string name="phone_number">Phone Number</string>
     <string name="no_data_icon_desc">no_data_icon_desc</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="phone">Phone</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>

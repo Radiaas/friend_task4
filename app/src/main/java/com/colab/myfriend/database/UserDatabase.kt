@@ -1,9 +1,10 @@
-package com.colab.myfriend
+package com.colab.myfriend.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.colab.myfriend.adapter.UserDao
 
 @Database(entities = [User::class], version = 2, exportSchema = false) // Versi diubah menjadi 2
 abstract class UserDatabase : RoomDatabase() {

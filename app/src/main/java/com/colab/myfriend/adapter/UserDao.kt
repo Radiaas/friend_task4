@@ -1,9 +1,10 @@
-package com.colab.myfriend
+package com.colab.myfriend.adapter
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.colab.myfriend.database.User
 
 @Dao
 interface UserDao {

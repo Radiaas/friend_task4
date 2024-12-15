@@ -1,9 +1,11 @@
-package com.colab.myfriend
+package com.colab.myfriend.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.colab.myfriend.Api.ApiService
+import com.colab.myfriend.adapter.UserDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -39,7 +41,7 @@ class LoginViewModel @Inject constructor(
 }
 
 sealed class LoginState {
-    object Loading : LoginState()
-    object Success : LoginState()
+    data object Loading : LoginState()
+    data object Success : LoginState()
     data class Error(val message: String) : LoginState()
 }

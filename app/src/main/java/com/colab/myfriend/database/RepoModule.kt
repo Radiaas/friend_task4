@@ -1,5 +1,7 @@
-package com.colab.myfriend
+package com.colab.myfriend.database
 
+import com.colab.myfriend.repository.DataProductsRepo
+import com.colab.myfriend.repository.ImplDataProductRepo
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

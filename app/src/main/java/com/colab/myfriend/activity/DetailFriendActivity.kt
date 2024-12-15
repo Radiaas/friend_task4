@@ -54,7 +54,7 @@ class DetailFriendActivity : AppCompatActivity() {
                 putExtra("EXTRA_PHONE_NUMBER", currentFriend?.phone) // Pastikan phoneNumber disertakan
             }
             editLauncher.launch(editIntent)
-      }
+        }
 
 
 

@@ -1,5 +1,6 @@
-package com.colab.myfriend
+package com.colab.myfriend.Api
 
+import com.colab.myfriend.database.User
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

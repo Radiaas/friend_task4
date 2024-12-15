@@ -1,6 +1,6 @@
 package com.colab.myfriend
 
-import com.crocodic.core.api.ModelResponse
+import com.colab.myfriend.Api.ResponseDataProduct
 import retrofit2.http.GET
 import retrofit2.http.Query
 

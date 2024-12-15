@@ -1,5 +1,6 @@
 package com.colab.myfriend.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.colab.myfriend.DataProduct
+import com.colab.myfriend.app.DataProduct
 import com.colab.myfriend.R
 
 class FriendAdapter(
@@ -28,6 +29,7 @@ class FriendAdapter(
 
     override fun getItemCount(): Int = productList.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newProducts: List<DataProduct>) {
         val diffCallback = object : DiffUtil.Callback() {
             override fun getOldListSize(): Int = productList.size
@@ -43,7 +45,8 @@ class FriendAdapter(
         }
 
         val diffResult = DiffUtil.calculateDiff(diffCallback)
-        productList = newProducts
+        productList = newProducts.toList()
+        notifyDataSetChanged()     // Beritahu adapter bahwa data berubah
         diffResult.dispatchUpdatesTo(this)
     }
 

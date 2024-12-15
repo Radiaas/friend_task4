@@ -1,14 +1,12 @@
-package com.colab.myfriend
+package com.colab.myfriend.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.colab.myfriend.activity.MenuHomeActivity
+import com.colab.myfriend.viewmodel.LoginState
+import com.colab.myfriend.viewmodel.LoginViewModel
 import com.colab.myfriend.databinding.ActivityLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 
