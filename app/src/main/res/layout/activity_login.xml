@@ -15,36 +15,44 @@
         <ImageView
             style="@style/mainImageTheme"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_450sdp"
+            android:layout_height="@dimen/_400sdp"
             android:contentDescription="@string/home_image"/>
 
-        <EditText
-            android:id="@+id/etPhone"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:autofillHints=""
-            android:hint="@string/phone"
-            android:inputType="phone"
-            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,VisualLintBounds,TextContrastCheck" />
+            android:padding="@dimen/_20sdp"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:autofillHints=""
+                android:hint="@string/phone"
+                android:inputType="phone"
+                tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,VisualLintBounds,TextContrastCheck" />
 
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:autofillHints=""
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,VisualLintBounds,TextContrastCheck" />
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:autofillHints=""
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,VisualLintBounds,TextContrastCheck" />
 
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:text="@string/login"
-            tools:ignore="VisualLintButtonSize,TouchTargetSizeCheck,VisualLintBounds" />
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/login"
+                tools:ignore="VisualLintButtonSize,TouchTargetSizeCheck,VisualLintBounds" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

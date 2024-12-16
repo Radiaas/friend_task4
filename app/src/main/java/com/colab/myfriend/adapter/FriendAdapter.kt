@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.colab.myfriend.app.DataProduct
 import com.colab.myfriend.R
 
@@ -56,15 +57,26 @@ class FriendAdapter(
         private val profileImageView: ImageView = itemView.findViewById(R.id.img_friend)
 
         fun bind(product: DataProduct, onItemClick: (DataProduct) -> Unit) {
+            // Bind text data
             titleTextView.text = product.title
             descriptionTextView.text = product.description
 
-            // Placeholder image handling, or set a default image for all products
-            profileImageView.setImageResource(R.drawable.ic_profile_placeholder)
+            // Load the first image URL or set a placeholder if the list is empty
+            if (product.images.isNotEmpty()) {
+                Glide.with(itemView.context)
+                    .load(product.images[0]) // Load the first image
+                    .placeholder(R.drawable.ic_profile_placeholder) // Placeholder image
+                    .into(profileImageView)
+            } else {
+                // Set a placeholder for items with no image
+                profileImageView.setImageResource(R.drawable.ic_profile_placeholder)
+            }
 
+            // Handle item click
             itemView.setOnClickListener {
                 onItemClick(product)
             }
         }
     }
+
 }
