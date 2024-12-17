@@ -23,7 +23,6 @@ class MenuHomeActivity : AppCompatActivity() {
     private val viewModel: FriendViewModel by viewModels()
     private var productList = ArrayList<DataProduct>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMenuHomeBinding.inflate(layoutInflater)
@@ -56,7 +55,6 @@ class MenuHomeActivity : AppCompatActivity() {
         })
     }
 
-
     private fun searchProduct(keyword: String) {
         lifecycleScope.launch {
             viewModel.searchProduct(keyword).collect { results ->
@@ -76,7 +74,5 @@ class MenuHomeActivity : AppCompatActivity() {
             }
         }
     }
-
-
 
 }
