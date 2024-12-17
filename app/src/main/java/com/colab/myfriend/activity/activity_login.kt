@@ -25,6 +25,8 @@ class LoginActivity : AppCompatActivity() {
             val phone = binding.etPhone.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
 
+            Toast.makeText(this, "Button di klik", Toast.LENGTH_SHORT).show()
+
             if (phone.isNotEmpty() && password.isNotEmpty()) {
                 viewModel.login(phone, password)
             } else {
