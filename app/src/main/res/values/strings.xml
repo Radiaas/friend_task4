@@ -35,4 +35,18 @@
     <string name="phone">Phone</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="sortir">Sortir</string>
+    <string name="filter">Filter</string>
+    <string name="filter_products">Filter Products</string>
+    <string name="tops">Tops</string>
+    <string name="vehicle">Vehicle</string>
+    <string name="laptops">Laptops</string>
+    <string name="motorcycle">Motorcycle</string>
+    <string name="simpan">Simpan</string>
+    <string name="descending">Descending</string>
+    <string name="ascending">Ascending</string>
+    <string name="order_products">Order Products</string>
+    <string name="description_title">Description</string>
+    <string name="title">Title</string>
+    <string name="sorting_products">Sorting Products</string>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -8,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Filter Products"
+        android:text="@string/filter_products"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -23,25 +24,29 @@
             android:id="@+id/filter_tops"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tops" />
+            android:text="@string/tops"
+            tools:ignore="VisualLintButtonSize" />
 
         <RadioButton
             android:id="@+id/filter_vehicle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Vehicle" />
+            android:text="@string/vehicle"
+            tools:ignore="VisualLintButtonSize" />
 
         <RadioButton
             android:id="@+id/filter_laptops"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Laptops" />
+            android:text="@string/laptops"
+            tools:ignore="VisualLintButtonSize" />
 
         <RadioButton
             android:id="@+id/filter_motorcycle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Motorcycle" />
+            android:text="@string/motorcycle"
+            tools:ignore="VisualLintButtonSize" />
 
     </RadioGroup>
 
@@ -51,7 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         style="@style/Button"
-        android:text="Simpan" />
+        android:text="@string/simpan"
+        tools:ignore="VisualLintButtonSize" />
 
 
 </LinearLayout>
