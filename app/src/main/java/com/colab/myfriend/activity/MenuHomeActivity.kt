@@ -4,36 +4,39 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.colab.myfriend.R
 import com.colab.myfriend.adapter.FriendAdapter
 import com.colab.myfriend.app.DataProduct
+import com.colab.myfriend.btm_sht.BottomSheetFilterProducts
+import com.colab.myfriend.btm_sht.BottomSheetSortingProducts
+import com.colab.myfriend.databinding.ActivityItemFriendBinding
 import com.colab.myfriend.databinding.ActivityMenuHomeBinding
 import com.colab.myfriend.viewmodel.FriendViewModel
+import com.crocodic.core.base.activity.CoreActivity
+import com.crocodic.core.base.adapter.ReactiveListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
-class MenuHomeActivity : AppCompatActivity() {
+class MenuHomeActivity : CoreActivity<ActivityMenuHomeBinding, FriendViewModel>(R.layout.activity_menu_home) {
 
-    private lateinit var binding: ActivityMenuHomeBinding
     private lateinit var adapter: FriendAdapter
-    private val viewModel: FriendViewModel by viewModels()
     private var productList = ArrayList<DataProduct>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMenuHomeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding.recyclerView.adapter = adapterCore
 
         adapter = FriendAdapter(emptyList()) { _ ->
             // Tambahkan logika klik item di sini
         }
 
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
-        binding.recyclerView.adapter = adapter
 
         lifecycleScope.launch {
             viewModel.getProduct()
@@ -46,6 +49,18 @@ class MenuHomeActivity : AppCompatActivity() {
             }
         }
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.product.collect { data ->
+                        Timber.tag("API").d("Data Response: $data")
+
+                        adapterCore.submitList(data)
+                    }
+                }
+            }
+        }
+
         binding.searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -53,6 +68,27 @@ class MenuHomeActivity : AppCompatActivity() {
             }
             override fun afterTextChanged(s: Editable?) {}
         })
+
+        binding.ftbnFilter.setOnClickListener {
+            val btmSht = BottomSheetFilterProducts { filter ->
+                viewModel.filterProducts(filter)
+            }
+
+            btmSht.show(supportFragmentManager, "BtmShtFilteringProducts")
+        }
+
+        binding.ftbnSort.setOnClickListener {
+            val btmSht = BottomSheetSortingProducts { sortBy, order ->
+                viewModel.sortProducts(sortBy, order)
+            }
+
+            btmSht.show(supportFragmentManager, "BtmShtSortingProducts")
+        }
+
+    }
+
+    private val adapterCore by lazy {
+        ReactiveListAdapter<ActivityItemFriendBinding, DataProduct>(R.layout.activity_item_friend)
     }
 
     private fun searchProduct(keyword: String) {
@@ -74,5 +110,4 @@ class MenuHomeActivity : AppCompatActivity() {
             }
         }
     }
-
 }

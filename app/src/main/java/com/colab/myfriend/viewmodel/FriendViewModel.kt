@@ -3,7 +3,6 @@ package com.colab.myfriend.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.colab.myfriend.app.DataProduct
 import com.colab.myfriend.repository.DataProductsRepo
-import com.colab.myfriend.repository.FriendRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.colab.myfriend.adapter.FriendDao
@@ -18,7 +17,7 @@ import kotlinx.coroutines.launch
 class FriendViewModel @Inject constructor(
     private val friendDao: FriendDao,
     private val dataProductsRepo: DataProductsRepo,
-    private val repository: FriendRepository
+//    private val repository: FriendRepository
 ) : CoreViewModel() {
 
     private val _product = MutableStateFlow<List<DataProduct>>(emptyList())
@@ -35,8 +34,20 @@ class FriendViewModel @Inject constructor(
         return dataProductsRepo.getProducts(keyword)
     }
 
+    fun sortProducts(sortBy: String = "", orderBy: String = "") = viewModelScope.launch {
+        dataProductsRepo.sortProducts(sortBy, orderBy).collect {
+            _product.emit(it)
+        }
+    }
 
-    fun getFriend() = friendDao.getAll()
+    fun filterProducts(filter: String = "") = viewModelScope.launch {
+        dataProductsRepo.filterProducts(filter).collect {
+            _product.emit(it)
+        }
+    }
+
+
+//    fun getFriend() = friendDao.getAll()
 
     fun getFriendById(id: Int) = friendDao.getItemById(id)
 
@@ -52,9 +63,9 @@ class FriendViewModel @Inject constructor(
         friendDao.delete(data)
     }
 
-    suspend fun searchFriend(keyword: String): Flow<List<Friend>> {
-        return repository.searchFriend(keyword)
-    }
+//    suspend fun searchFriend(keyword: String): Flow<List<Friend>> {
+//        return repository.searchFriend(keyword)
+//    }
 
     override fun apiLogout() {
         TODO("Not yet implemented")
