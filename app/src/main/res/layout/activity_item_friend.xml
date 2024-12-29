@@ -47,7 +47,7 @@
             <TextView
                 android:id="@+id/tv_friend_name"
                 style="@style/textTheme"
-                android:text="@{data.title}"
+                android:text='@{data.id + " | " + data.title}'
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold"/>
 

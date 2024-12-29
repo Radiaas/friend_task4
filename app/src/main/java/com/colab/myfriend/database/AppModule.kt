@@ -4,10 +4,7 @@ import android.content.Context
 import com.colab.myfriend.Api.ApiService
 import com.colab.myfriend.ApiServiceProduct
 import com.colab.myfriend.adapter.UserDao
-import com.colab.myfriend.adapter.FriendDao
 import com.colab.myfriend.repository.DataProductsRepo
-import com.colab.myfriend.repository.FriendRepository
-import com.colab.myfriend.repository.FriendRepositoryImpl
 import com.colab.myfriend.repository.ImplDataProductRepo
 import com.crocodic.core.helper.NetworkHelper
 import dagger.Module
@@ -24,17 +21,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides
-    @Singleton
-    fun provideMyDatabase(@ApplicationContext context: Context): MyDatabase {
-        return MyDatabase.getInstance(context)
-    }
-
-    @Provides
-    @Singleton
-    fun provideFriendDao(myDatabase: MyDatabase): FriendDao {
-        return myDatabase.friendDao()
-    }
 
     @Provides
     @Singleton
@@ -48,13 +34,7 @@ object AppModule {
         return userDatabase.userDao()
     }
 
-    @Provides
-    @Singleton
-    fun provideFriendRepository(
-        friendDao: FriendDao
-    ): FriendRepository {
-        return FriendRepositoryImpl(friendDao)
-    }
+
 
     @Provides
     @Singleton

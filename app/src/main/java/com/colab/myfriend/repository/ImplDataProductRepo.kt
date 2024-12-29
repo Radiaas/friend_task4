@@ -27,20 +27,6 @@ class ImplDataProductRepo @Inject constructor(private val apiServiceProduct: Api
     }
 
 
-    override fun searchProducts(keyword: String): Flow<List<DataProduct>> = flow {
-        ApiObserver.run(
-            { apiServiceProduct.getProducts(keyword) }, // Perbaikan disini
-            false,
-            object : ApiObserver.ModelResponseListener<ResponseDataProduct> {
-                override suspend fun onSuccess(response: ResponseDataProduct) {
-                    emit(response.products)
-                }
-
-                override suspend fun onError(response: ResponseDataProduct) {
-                    emit(emptyList())
-                }
-            })
-    }
 
     override fun sortProducts(sortBy: String, order: String): Flow<List<DataProduct>> = flow {
         ApiObserver.run(
@@ -72,6 +58,11 @@ class ImplDataProductRepo @Inject constructor(private val apiServiceProduct: Api
             })
     }
 
-
+    override fun pagingProducts(limit: Int, skip: Int): Flow<List<DataProduct>> {
+        return flow {
+            val response = apiServiceProduct.pagingProduct(limit, skip)
+            emit(response.products ?: return@flow)
+        }
+    }
 
 }

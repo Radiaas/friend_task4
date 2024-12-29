@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -17,8 +18,10 @@ import com.colab.myfriend.databinding.ActivityItemFriendBinding
 import com.colab.myfriend.databinding.ActivityMenuHomeBinding
 import com.colab.myfriend.viewmodel.FriendViewModel
 import com.crocodic.core.base.activity.CoreActivity
+import com.crocodic.core.base.adapter.PaginationAdapter
 import com.crocodic.core.base.adapter.ReactiveListAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -39,35 +42,29 @@ class MenuHomeActivity : CoreActivity<ActivityMenuHomeBinding, FriendViewModel>(
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
 
         lifecycleScope.launch {
-            viewModel.getProduct()
+            viewModel.getPagingProducts()
         }
 
+
         lifecycleScope.launch {
-            viewModel.product.collect { data ->
-                adapter.updateData(data)
-                binding.noDataLayout.visibility = View.GONE // Tidak tampil sebelum pencarian
-            }
+            viewModel.queries.emit(Triple("", "", ""))
         }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.product.collect { data ->
-                        Timber.tag("API").d("Data Response: $data")
-
-                        adapterCore.submitList(data)
+                    viewModel.getPagingProducts().collectLatest { data ->
+                        adapterCore.submitData(data)
                     }
                 }
             }
         }
 
-        binding.searchBar.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                searchProduct(s.toString())  // Memanggil fungsi pencarian
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
+        binding.searchBar.doOnTextChanged { text, start, before, count ->
+            val keyword = "%${text.toString().trim()}%"
+            Timber.d("Search keyword: $keyword")
+            viewModel.getProduct(keyword)
+        }
 
         binding.ftbnFilter.setOnClickListener {
             val btmSht = BottomSheetFilterProducts { filter ->
@@ -88,26 +85,8 @@ class MenuHomeActivity : CoreActivity<ActivityMenuHomeBinding, FriendViewModel>(
     }
 
     private val adapterCore by lazy {
-        ReactiveListAdapter<ActivityItemFriendBinding, DataProduct>(R.layout.activity_item_friend)
+        PaginationAdapter<ActivityItemFriendBinding, DataProduct>(R.layout.activity_item_friend)
     }
 
-    private fun searchProduct(keyword: String) {
-        lifecycleScope.launch {
-            viewModel.searchProduct(keyword).collect { results ->
-                // Bersihkan data lama terlebih dahulu
-                productList.clear()
 
-                if (results.isEmpty() && keyword.isNotEmpty()) {
-                    // Tampilkan layout "No Data" jika hasil pencarian kosong
-                    binding.noDataLayout.visibility = View.VISIBLE
-                    adapter.updateData(emptyList()) // Hapus semua data yang ada di adapter
-                } else {
-                    // Sembunyikan layout "No Data" jika ada hasil
-                    binding.noDataLayout.visibility = View.GONE
-                    productList.addAll(results)
-                    adapter.updateData(productList) // Perbarui adapter dengan hasil pencarian
-                }
-            }
-        }
-    }
 }

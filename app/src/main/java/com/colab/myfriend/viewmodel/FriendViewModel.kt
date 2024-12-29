@@ -1,24 +1,41 @@
 package com.colab.myfriend.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.colab.myfriend.app.DataProduct
 import com.colab.myfriend.repository.DataProductsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import com.colab.myfriend.adapter.FriendDao
-import com.colab.myfriend.database.Friend
+import com.crocodic.core.base.adapter.CorePagingSource
 import com.crocodic.core.base.viewmodel.CoreViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class FriendViewModel @Inject constructor(
-    private val friendDao: FriendDao,
     private val dataProductsRepo: DataProductsRepo,
-//    private val repository: FriendRepository
 ) : CoreViewModel() {
+
+    val queries = MutableStateFlow<Triple<String?, String?, String?>>(Triple(null, null, null))
+
+    fun getPagingProducts() : Flow<PagingData<DataProduct>> {
+        return queries.flatMapLatest {
+            Pager(
+                config = CorePagingSource.config(10),
+                pagingSourceFactory = {
+                    CorePagingSource(0) {page: Int, limit: Int ->
+                        dataProductsRepo.pagingProducts(limit, page).first()
+                    }
+                }
+            ).flow.cachedIn(viewModelScope)
+        }
+    }
 
     private val _product = MutableStateFlow<List<DataProduct>>(emptyList())
     val product: StateFlow<List<DataProduct>> = _product
@@ -28,10 +45,6 @@ class FriendViewModel @Inject constructor(
         dataProductsRepo.getProducts(keyword).collect { it: List<DataProduct> ->
             _product.emit(it)
         }
-    }
-
-    fun searchProduct(keyword: String): Flow<List<DataProduct>> {
-        return dataProductsRepo.getProducts(keyword)
     }
 
     fun sortProducts(sortBy: String = "", orderBy: String = "") = viewModelScope.launch {
@@ -46,26 +59,6 @@ class FriendViewModel @Inject constructor(
         }
     }
 
-
-//    fun getFriend() = friendDao.getAll()
-
-    fun getFriendById(id: Int) = friendDao.getItemById(id)
-
-    suspend fun insertFriend(data: Friend) {
-        friendDao.insert(data)
-    }
-
-    suspend fun editFriend(data: Friend) {
-        friendDao.update(data)
-    }
-
-    suspend fun deleteFriend(data: Friend) {
-        friendDao.delete(data)
-    }
-
-//    suspend fun searchFriend(keyword: String): Flow<List<Friend>> {
-//        return repository.searchFriend(keyword)
-//    }
 
     override fun apiLogout() {
         TODO("Not yet implemented")

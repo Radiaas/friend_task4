@@ -35,21 +35,18 @@ class FriendAdapter(
         val diffCallback = object : DiffUtil.Callback() {
             override fun getOldListSize(): Int = productList.size
             override fun getNewListSize(): Int = newProducts.size
-
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                 return productList[oldItemPosition].id == newProducts[newItemPosition].id
             }
-
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                 return productList[oldItemPosition] == newProducts[newItemPosition]
             }
         }
-
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         productList = newProducts.toList()
-        notifyDataSetChanged()     // Beritahu adapter bahwa data berubah
-        diffResult.dispatchUpdatesTo(this)
+        diffResult.dispatchUpdatesTo(this) // Jangan gunakan notifyDataSetChanged
     }
+
 
     class FriendViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val titleTextView: TextView = itemView.findViewById(R.id.tv_friend_name)
